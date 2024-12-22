@@ -2,7 +2,7 @@ name: "iKuuu Checkin 0"
 
 on:
   schedule:
-    - cron: "37 16 * * *"  # scheduled at 00:40 (UTC+8) everyday
+    - cron: "0 16 * * *"  # scheduled at 00:00 (UTC+8) everyday
   workflow_dispatch:
 
 env:
