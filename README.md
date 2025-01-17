@@ -12,10 +12,10 @@
 1. 右上角Fork此仓库
 2. 然后到`Settings`→`Secrets and variables`→`Actions` 新建以下机密：
 
-| 参数 | 是否必须 | 内容 |
-​|​ URL |​ 是 ​|​ 机场网址 ​|
-| CONFIG | 是 | 账号和密码 |
-| SCKEY | 否 | Sever酱秘钥 |
+| 参数  | 是否必须  | 内容  |
+​|​ URL  |​ 是 ​ |​ 机场网址  ​|
+| CONFIG  | 是  | 账号和密码  |
+| SCKEY  | 否  | Sever酱秘钥  |
 <br/>
 <b>其中URL的值必须是机场网站的地址，例如：https://example.com</b>,尾部不要加''' / '''号，CONFIG写法：一行账号一行密码
 
