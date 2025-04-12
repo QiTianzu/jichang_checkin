@@ -1,4 +1,4 @@
-name: "okxyz Checkin 1"
+name: "okti Checkin 1"
 
 on:
   schedule:
@@ -35,10 +35,10 @@ jobs:
           pip install -r requirements.txt
       - name: Run sign
         env:
-          URL: ${{ secrets.OKXYZ_URL }}
+          URL: ${{ secrets.OKTI_URL }}
           SCKEY: ${{ secrets.SCKEY }}
           EMAIL: ${{ secrets.EMAIL }}
           PASSWD: ${{ secrets.PASSWD }}
-          CONFIG: ${{ secrets.OKXYZ_CONFIG_1 }}
+          CONFIG: ${{ secrets.OKTI_CONFIG_1 }}
         run: |
           python3 ./main.py
