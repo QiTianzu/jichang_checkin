@@ -1,4 +1,4 @@
-import requests, json, re, os
+import cloudscraper, json, re, os
 # 机场的地址
 url = os.environ.get('URL')
 # 配置用户名（一般是邮箱）
@@ -11,7 +11,7 @@ login_url = '{}/auth/login'.format(url)
 check_url = '{}/user/checkin'.format(url)
 
 def sign(order,user,pwd):
-        session = requests.session()
+        session = cloudscraper.create_scraper()
         global url,SEKEY
         header = {
         'origin': url,
