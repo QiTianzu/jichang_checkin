@@ -38,8 +38,8 @@ def sign(order,user,pwd):
       page.wait_for_selector('#email', timeout=60000)
       page.fill('#email', user)
       # 等待密码输入框出现并填入
-      page.wait_for_selector('#passwd', timeout=60000)
-      page.fill('#passwd', pwd)
+      page.wait_for_selector('#passwd, #password', timeout=60000)
+      page.fill('#passwd, #password', pwd)
 
       # 点击登录按钮
       page.click('button[type="submit"]')
