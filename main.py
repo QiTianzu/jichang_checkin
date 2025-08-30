@@ -34,8 +34,12 @@ def sign(order,user,pwd):
       page.goto(login_url, wait_until="networkidle")
 
       # 填写账号密码
-      page.fill('input[name="email"]', user)
-      page.fill('input[name="passwd"]', pwd)
+      # 等待邮箱输入框出现并填入
+      page.wait_for_selector('#email', timeout=60000)
+      page.fill('#email', user)
+      # 等待密码输入框出现并填入
+      page.wait_for_selector('#passwd', timeout=60000)
+      page.fill('#passwd', pwd)
 
       # 点击登录按钮
       page.click('button[type="submit"]')
