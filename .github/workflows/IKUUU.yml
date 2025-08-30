@@ -52,3 +52,9 @@ jobs:
           CONFIG: ${{ secrets.IKUUU_CONFIG }}
         run: |
           python3 ./main.py
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: cf_screenshots
+          path: cf_debug_*.png
