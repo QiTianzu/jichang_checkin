@@ -30,8 +30,10 @@ def sign(order,user,pwd):
       browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
       page = browser.new_page()
 
-      # 打开登录页（会自动等待 Cloudflare 验证通过）
-      page.goto(login_url, wait_until="networkidle")
+      # 打开登录页（最多等待 60 秒加载页面）
+      page.goto(login_url, timeout=60000)
+      # 等待页面 DOM 加载完成
+      page.wait_for_load_state("domcontentloaded")
 
       # 填写账号密码
       # 等待邮箱输入框出现并填入
