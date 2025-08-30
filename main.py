@@ -46,11 +46,19 @@ def sign(order,user,pwd):
 
       # 等待跳转或网络空闲
       page.wait_for_load_state("networkidle")
+      # 等待 3 秒，确保 Cloudflare 验证和跳转完成
+      page.wait_for_timeout(3000)
 
-      # 登录后直接访问签到接口
-      page.goto(check_url, wait_until="networkidle")
-      res_text = page.text_content("body")
-      print(res_text)
+      # 判断是否登录成功（页面跳转到 /user 或 /dashboard）
+      if "/user" in page.url or "/dashboard" in page.url:
+        print("登录成功，准备签到")
+        # 登录后直接访问签到接口
+        page.goto(check_url, wait_until="networkidle")
+        res_text = page.text_content("body")
+        print(res_text)
+      else:
+        print("登录失败，跳过签到")
+        return
 
       try:
         result = json.loads(res_text)
