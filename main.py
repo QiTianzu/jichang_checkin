@@ -34,6 +34,13 @@ def sign(order,user,pwd):
       page.goto(login_url, timeout=60000)
       # 等待页面 DOM 加载完成
       page.wait_for_load_state("domcontentloaded")
+      # 给 Cloudflare 验证时间
+      page.wait_for_timeout(5000)
+      # 判断是否进入 Cloudflare 验证页
+      if "Just a moment..." in page.content():
+        print("⚠️ Cloudflare 验证页仍在加载，可能未通过挑战")
+      # 截图以查看页面加载情况
+      page.screenshot(path=f"cf_debug_{order}.png")
 
       # 填写账号密码
       # 等待邮箱输入框出现并填入
