@@ -52,20 +52,20 @@ def sign(order,user,pwd):
       # 判断是否登录成功（页面跳转到 /user 或 /dashboard）
       if "/user" in page.url or "/dashboard" in page.url:
         print("登录成功，准备签到")
-        # 登录后直接访问签到接口
-        page.goto(check_url, wait_until="networkidle")
-        res_text = page.text_content("body")
-        print(res_text)
       else:
         print("登录失败，跳过签到")
         return
-
+      
+      # 登录后直接直接发 POST 请求        
+      response = page.request.post(check_url)
       try:
-        result = json.loads(res_text)
-        content = result.get("msg", res_text)
-      except json.JSONDecodeError:
-        content = res_text
+        result = response.json()
+        print(f"[调试] 签到响应内容: {result}")
+        content = result.get("msg", str(result))
+      except Exception:
+        content = response.text()
       finally:
+        print(f"[调试] 签到响应内容: {content}")
         browser.close()
         # 进行推送
         push_message(content)
