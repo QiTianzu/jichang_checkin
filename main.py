@@ -1,8 +1,7 @@
 import requests, json, re, os
 # 机场的地址
 url = os.environ.get('URL')
-# 配置用户名（一般是邮箱）
-
+# 配置用户（一般是邮箱）和密码
 config = os.environ.get('CONFIG')
 # server酱
 SCKEY = os.environ.get('SCKEY')
@@ -22,12 +21,26 @@ def sign(order,user,pwd):
         'passwd': pwd
         }
         try:
+                # 进行登录
                 print(f'===账号{order}进行登录...===')
                 print(f'账号：{user}')
                 res = session.post(url=login_url,headers=header,data=data).text
                 print(res)
                 response = json.loads(res)
                 print(response['msg'])
+                # 进行购买
+                if url == 'https://ccgfw.top':
+                        buy_url = '{}/user/buy'.format(url)
+                        data = {
+                        'coupon': '',
+                        'shop': 8,
+                        'autorenew': 1,
+                        'disableothers': 1
+                        }
+                        res1 = session.post(url=buy_url,headers=header,data=data).text
+                        print(res1)
+                        response1 = json.loads(res1)
+                        print(response1['msg'])
                 # 进行签到
                 res2 = session.post(url=check_url,headers=header).text
                 print(res2)
@@ -48,6 +61,7 @@ def sign(order,user,pwd):
                         requests.post(url=push_url)
                         print('推送成功')
         print('===账号{order}签到结束===\n'.format(order=order))
+
 if __name__ == '__main__':
         configs = config.splitlines()
         if len(configs) %2 != 0 or len(configs) == 0:
@@ -59,4 +73,3 @@ if __name__ == '__main__':
                 user = configs[i*2]
                 pwd = configs[i*2+1]
                 sign(i,user,pwd)
-        
